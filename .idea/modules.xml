@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scal-scratchpd.iml" filepath="$PROJECT_DIR$/.idea/modules/scal-scratchpd.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/scala-scratchpad.iml" filepath="$PROJECT_DIR$/.idea/modules/scala-scratchpad.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/scala-scratchpad-build.iml" filepath="$PROJECT_DIR$/.idea/modules/scala-scratchpad-build.iml" />
     </modules>
