@@ -1,4 +1,4 @@
-package scatchpad.model
+package scatchpad
 
 /**
   * Created by Alex on 2/8/2016.
@@ -18,3 +18,5 @@ object SpecialTextElements {
   val punctuationSigns = Seq("-", ",", ";", ":", "(", ")")
   val specialWords = Seq("etc.", "e.g.", "i.e.", "e.\ng.", "i.\ne.", "et al", "et\nal")
 }
+
+final case class Sentence(elements: Seq[Token])
