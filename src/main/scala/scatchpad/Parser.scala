@@ -11,7 +11,7 @@ trait Parser {
   //    Seq.empty
   //  }
 
-  def buildRegextFromPattern(tokenPattern: String) = s"(?s)(.*)($tokenPattern)(.*)".r
+  def buildRegextFromPattern(tokenPattern: String) = s"(?s)(?i)(.*)($tokenPattern)(.*)".r
 
   def splitText(textElement: TextElement, elementPattern: TextElementPattern): Seq[TextElement] = {
     textElement match {
