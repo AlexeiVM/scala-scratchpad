@@ -3,13 +3,13 @@ package scatchpad
 import scala.annotation.tailrec
 
 trait Parser {
-  //  def parseText(text: String): Seq[Sentence] = {
-  //    val textElements = TextElementPatterns.patterns.foldLeft(Seq[TextElement](NotParsedText(text))) {
-  //      (result, pattern) =>
-  //        result.map(x => splitText(x, pattern)).flatten
-  //    }
-  //    Seq.empty
-  //  }
+  def parseText(text: String): Seq[TextElement] = {
+    val textElements = TextElementPatterns.patterns.foldLeft(Seq[TextElement](NotParsedText(text))) {
+      (result, pattern) =>
+        result.flatMap(x => splitText(x, pattern))
+    }
+    textElements
+  }
 
   def buildRegextFromPattern(tokenPattern: String) = s"(?s)(?i)(.*)($tokenPattern)(.*)".r
 
@@ -28,9 +28,10 @@ trait Parser {
         val parsedText = elementPattern match {
           case x: SpecialWord => ParsedText(Word(matchedText))
           case x: Punctuation => ParsedText(Separator(matchedText))
+          case x: SentenceSeparator => ParsedText(EndOfSentence(matchedText))
         }
         val addedElements =
-          if (tailText.size > 0)
+          if (tailText.nonEmpty)
             Seq(parsedText, NotParsedText(tailText))
 
           else
