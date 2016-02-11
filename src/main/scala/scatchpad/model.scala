@@ -13,7 +13,7 @@ final case object EndOfSentence extends Token
 
 sealed trait TextElement
 
-final case class ParsedText[T <: Token](tokens: T) extends TextElement
+final case class ParsedText[T <: Token](token: T) extends TextElement
 
 final case class NotParsedText(text: String) extends TextElement
 
