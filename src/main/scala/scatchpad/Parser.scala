@@ -3,9 +3,9 @@ package scatchpad
 import scala.annotation.tailrec
 
 trait Parser {
-  def parseText(text: String): Seq[Sentence] = {
-    val tokens = splitText(text, TokenPatterns.items)
-    Seq.empty
+  def parseText(text: String, patterns: List[TokenPattern[Token]]): Text = {
+    val tokens = splitText(text, patterns)
+    tokens.foldLeft(Text(Seq.empty))((result, token) => result.appendToken(token))
   }
 
   def peelOffToken[T <: Token](text: String, patterns: List[TokenPattern[T]]): (String, Option[Token]) = {
@@ -35,9 +35,6 @@ trait Parser {
   @tailrec
   private def splitText(text: String, patterns: List[TokenPattern[Token]], accumulatedResult: Seq[Token]): Seq[Token] = {
     val (remainingText, token) = peelOffToken(text, patterns)
-    //    println("=============================")
-    //    println(s"remainingText.size - ${remainingText.size} - $token")
-    //    println("=============================")
     val newAccumulatedResult = token.fold(accumulatedResult)(_ +: accumulatedResult)
     if (remainingText.isEmpty)
       newAccumulatedResult

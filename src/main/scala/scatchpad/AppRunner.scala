@@ -15,21 +15,18 @@ clearance is a word that spans across two lines.
 }
 
 object AppRunner extends App with Parser {
-//  println("Starting run ...")
-//    val regex = "(?s)(?i)(.*)([!]{1,100}$)".r //TokenPatterns.items(4).regex
-//  println(regex)
-//    """GOOOOOOOOOOOOOOOOOOOOOOOOOOAL!!!!!!!!!!""" match {
-//      case regex(head, token) => println(s"test match - ${token}, head - $head")
-//      case word @ _ => println(s"no match - $word")
-//    }
+  //  println("Starting run ...")
+  //    val regex = "(?s)(?i)(.*)([!]{1,100}$)".r //TokenPatterns.items(4).regex
+  //  println(regex)
+  //    """GOOOOOOOOOOOOOOOOOOOOOOOOOOAL!!!!!!!!!!""" match {
+  //      case regex(head, token) => println(s"test match - ${token}, head - $head")
+  //      case word @ _ => println(s"no match - $word")
+  //    }
 
-  import TestData._
+  val patterns = TokenPatterns.items.map(_.asInstanceOf[TokenPattern[Token]])
+  val text = TestData.multilineText
 
-  val (remainingText, token) = peelOffToken(multilineText, TokenPatterns.items)
-  //  println(s"token - $token")
-  //  println(s"remainingText - $remainingText")
-  //  TokenPatterns.items.map(x => (x.token("ttt"))).map(println)
-  val tokens = splitText(multilineText, TokenPatterns.items)
-  tokens.map(println)
+  val result = parseText(text, patterns)
+  result.sentences.map(println)
   println("Completed run")
 }
