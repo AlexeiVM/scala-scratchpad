@@ -21,7 +21,7 @@ trait Parser {
               case _ => ("", None)
             }
         }
-        val firstMatch = matchingResults.filter(_._2.isDefined).reverse.headOption
+        val firstMatch = matchingResults.filter(_._2.isDefined).headOption
         firstMatch match {
           case Some((remainingText, token)) => (remainingText, token)
           case _ => ("", None)
@@ -35,9 +35,9 @@ trait Parser {
   @tailrec
   private def splitText(text: String, patterns: List[TokenPattern[Token]], accumulatedResult: Seq[Token]): Seq[Token] = {
     val (remainingText, token) = peelOffToken(text, patterns)
-    println("=============================")
-    println(s"text.size - $token")
-    println("=============================")
+    //    println("=============================")
+    //    println(s"remainingText.size - ${remainingText.size} - $token")
+    //    println("=============================")
     val newAccumulatedResult = token.fold(accumulatedResult)(_ +: accumulatedResult)
     if (remainingText.isEmpty)
       newAccumulatedResult
