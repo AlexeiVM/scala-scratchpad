@@ -16,21 +16,19 @@ clearance is a word that spans across two lines.
 
 object AppRunner extends App with Parser {
   println("Starting run ...")
-
-//  val regex = "(?s)(?i)(.*)([^\\w]\\w+[-]\\n\\w+)(.*)".r
-//  "" match {
-//    case regex(a, b, c) => println(s"${b}")
-//    case word @ _ => println(s"no match - $word")
-//  }
+  //  val regex = "(?i)(?s)(.*)(\\s+)".r
+  //  TestData.multilineText match {
+  //    case regex(head, token) => println(s"test match - ${token}")
+  //    case word @ _ => println(s"no match - $word")
+  //  }
 
   import TestData._
-  val splitText: Seq[TextElement] = parseText(multilineText)
-  println(s"${splitText.size}")
-  splitText.map {
-    text =>
-      println("======================================")
-      println(text)
-      println("======================================")
-  }
+
+  val (remainingText, token) = peelOffToken(multilineText, TokenPatterns.items)
+  //  println(s"token - $token")
+  //  println(s"remainingText - $remainingText")
+  //  TokenPatterns.items.map(x => (x.token("ttt"))).map(println)
+  val tokens = splitText(multilineText, TokenPatterns.items)
+  tokens.map(println)
   println("Completed run")
 }
